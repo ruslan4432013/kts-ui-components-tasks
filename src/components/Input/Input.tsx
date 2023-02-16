@@ -1,4 +1,7 @@
-import React from 'react';
+import React from 'react'
+import s from './Input.module.scss'
+import cn from 'classnames'
+
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -10,4 +13,18 @@ export type InputProps = Omit<
   onChange: (value: string) => void;
 };
 
-export const Input: React.FC<InputProps> = () => null;
+export const Input: React.FC<InputProps> = (props) => {
+  const { className, value, onChange, disabled, ...other } = props
+  return (
+    <input
+      className={cn(className, s.input, 'input', {
+        [s.input_disabled]: disabled
+      })}
+      disabled={disabled}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      type={'text'}
+      {...other}
+    />
+  )
+}
